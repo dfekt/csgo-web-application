@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET create page. */
 router.get('/create', function(req, res, next) {
-    res.render('creategather', { title: 'Create new gather' });
+    res.render('createGather', { now: new Date() });
 });
 
 /* GET gather x page. */
