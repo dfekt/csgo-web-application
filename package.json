@@ -12,6 +12,20 @@
     "express": "~4.12.2",
     "jade": "~1.9.2",
     "morgan": "~1.5.1",
+    "mongoskin": "~1.4.13",
     "serve-favicon": "~2.2.0"
-  }
+  },
+  "description": "A web-application for booking servers and creating gathers",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dfekt/csgo-web-application.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dfekt/csgo-web-application/issues"
+  },
+  "homepage": "https://github.com/dfekt/csgo-web-application"
 }

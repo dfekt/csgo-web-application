@@ -19,12 +19,12 @@ block content
                     input(id="teamSize" type="text").validate
                     label(for="teamSize") Team size
                 .input-field.col.s6
-                    select
+                    select(id="skill")
                         option(value="" selected) Choose skill
-                        option(value="1") Low
-                        option(value="2") Med
-                        option(value="3") High
+                        option(value="low") Low
+                        option(value="med") Med
+                        option(value="high") High
                     label Skill
             .row
-                button(type="submit" name="action").btn.waves-effect.waves-light Submit
+                button(type="submit").btn.waves-effect.waves-light#addGather Submit
                     i.mdi-content-send.right
