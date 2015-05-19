@@ -1,9 +1,13 @@
 extends layout
 
 block content
-    h2.center-align Login
+    h2.center-align Signup
     .row
-        form(action="/login" method="post").col.s12
+        form(action="/signup" method="post").col.s12
+            .row
+                .input-field.col.s12
+                    input(id="nick" type="text").validate
+                    label(for="nick") Nick
             .row
                 .input-field.col.s12
                     input(id="email" type="email").validate
@@ -13,11 +17,6 @@ block content
                 .input-field.col.s12
                     input(id="pass" type="password").validate
                     label(for="pass") Password
-            .row
-                .col.s12
-                    p
-                        input(type="checkbox" id="remember")
-                        label(for="remember") Remember me
             .divider
             .row
                 .col.m12
