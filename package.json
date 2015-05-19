@@ -11,8 +11,8 @@
     "debug": "~2.1.1",
     "express": "~4.12.2",
     "jade": "~1.9.2",
+    "mongoose": "^4.0.3",
     "morgan": "~1.5.1",
-    "mongoskin": "~1.4.13",
     "serve-favicon": "~2.2.0"
   },
   "description": "A web-application for booking servers and creating gathers",
