@@ -13,6 +13,8 @@
     "jade": "~1.9.2",
     "morgan": "~1.5.1",
     "mongoskin": "~1.4.13",
+    "passport" : "~0.1.17",
+    "passport-local" : "~0.1.6",
     "serve-favicon": "~2.2.0"
   },
   "description": "A web-application for booking servers and creating gathers",
