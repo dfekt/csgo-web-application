@@ -26,7 +26,6 @@ router.get('/create', function(req, res, next) {
  * POST add gather.
  */
 router.post('/add', function(req, res) {
-    console.log(req.body);
     Gather.create(req.body, function(err, gather){
         res.send(
             (err === null) ? { msg: gather._id } : { msg: err }
@@ -39,7 +38,6 @@ router.post('/add', function(req, res) {
  */
 router.get('/gatherlist', function(req, res) {
     Gather.find(function (err, gathers) {
-        console.log(gathers);
         if (err)
             return res.send(err);
         else
