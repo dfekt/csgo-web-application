@@ -6,12 +6,12 @@ block content
         form(action="/login" method="post").col.s12
             .row
                 .input-field.col.s12
-                    input(id="email" type="email").validate
+                    input(id="email" type="email" name="email").validate
                     label(for="email") Email
 
             .row
                 .input-field.col.s12
-                    input(id="pass" type="password").validate
+                    input(id="password" type="password" name="password").validate
                     label(for="pass") Password
             .row
                 .col.s12
@@ -19,6 +19,7 @@ block content
                         input(type="checkbox" id="remember")
                         label(for="remember") Remember me
             .divider
+            p #{message}
             .row
                 .col.m12
                     p.right-align
