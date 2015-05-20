@@ -51,16 +51,16 @@ function addGather(event) {
 
     // If it is, compile all user info into one object
     var newGather = {
-        'name': $('#name').val(),
-        'startingTime': dateString + " " + timeString,
-        'currentPlayers': 0,
-        'maxPlayers': parseInt($('#teamSize').val())*2,
-        'skill': $('#skill').val(),
-        'userId': 1,
-        'dateCreated' : new Date()
+        name: $('#name').val(),
+        startingTime: dateString + " " + timeString,
+        currentPlayers: 0,
+        maxPlayers: parseInt($('#teamSize').val())*2,
+        skill: $('#skill').val(),
+        user: "email@domain.do",
+        dateCreated : new Date()
     }
 
-    // Use AJAX to post the object to our adduser service
+    // Use AJAX to post the object to our addgather service
     $.ajax({
         type: 'POST',
         data: newGather,
