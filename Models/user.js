@@ -8,7 +8,9 @@ var userSchema = mongoose.Schema({
     local            : {
         email: String,
         password: String,
-        nick: String
+        nick: String,
+        dateCreated : Date,
+        dateUpdated : { type: Date, default: Date.now }
     }
 
 });
