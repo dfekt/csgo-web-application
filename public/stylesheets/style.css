@@ -1,8 +1,19 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+div.page-content {
+    padding: 0 50px;
 }
 
-a {
-  color: #00B7FF;
+nav {
+    height: 64px;
+}
+
+nav .right-nav {
+    float: right;
+    margin-left: 30px
+}
+nav .nav-wrapper {
+    padding: 0 30px;
+}
+
+nav ul a {
+    color: #343434;
 }

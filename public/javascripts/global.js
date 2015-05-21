@@ -24,6 +24,8 @@ $(document).ready(function() {
 
     $('#addGather').on('click', addGather);
 
+    $(".button-collapse").sideNav();
+
     populateGatherList();
 });
 
