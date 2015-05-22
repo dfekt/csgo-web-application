@@ -10,6 +10,10 @@ var minutes = now.getMinutes()<10 ? "0"+now.getMinutes() : now.getMinutes();
 
 $(document).ready(function() {
 
+    //Navigation bar
+    $(".button-collapse").sideNav();
+
+
     // createGather FORMS
     $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
@@ -24,7 +28,6 @@ $(document).ready(function() {
 
     $('#addGather').on('click', addGather);
 
-    $(".button-collapse").sideNav();
 
     populateGatherList();
 });

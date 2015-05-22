@@ -14,6 +14,10 @@ html
                         a(href="#" data-activates="mobile-nav").button-collapse
                             i.mdi-navigation-menu
                         div.right-nav.hide-on-med-and-down
+                            if user
+                                a(href="/profile/#{user._id}").waves-effect.btn-flat #{user.local.nick}
+                                a(href="/logout").waves-effect.waves-light.btn Logout
+                            else
                                 a(href="/signup").waves-effect.btn-flat Signup
                                 a(href="/login").waves-effect.waves-light.btn Login
                         ul.right.hide-on-med-and-down

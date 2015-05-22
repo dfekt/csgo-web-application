@@ -19,7 +19,7 @@ var Gather = db.model('Gather',GatherSchema);
 
 /* GET create page. */
 router.get('/create', function(req, res, next) {
-    res.render('createGather', { now: new Date() });
+    res.render('createGather.jade', { now: new Date() });
 });
 
 /*
@@ -50,20 +50,20 @@ router.get('/:gatherid', function(req, res, next) {
     if(ObjectID.isValid(req.params.gatherid)) {
         Gather.findById(req.params.gatherid,function (err,gather){
             if (!err) {
-                res.render('gather', gather);
+                res.render('gather.jade', {gather: gather});
             }
             else
-                res.render('gather', {name: 'Gather not found'});
+                res.render('gather.jade');
         });
     }
     //check if it is trying to find gather by its name, this works if the name is unique
     else{
         Gather.findOne({name:req.params.gatherid},function(err,gather){
-            if(!err) {
-                res.render('gather', gather);
+            if (!err) {
+                res.render('gather.jade', {gather: gather});
             }
             else
-                res.render('gather', { name: 'Gather not found'});
+                res.render('gather.jade');
         })
     }
 });

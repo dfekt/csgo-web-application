@@ -39,6 +39,12 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
+//Sends current user from the session to every view
+app.use(function(req,res,next){
+    res.locals.user = req.user;
+    next()
+});
+
 // routes ======================================================================
 app.use('/', routes);
 app.use('/users', users);
