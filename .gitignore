@@ -1,10 +1,13 @@
 Created by https://www.gitignore.io
 
-#data folder
+# data folder
 data/
 
-#Configs
+# Configs
 config.json
+
+# Build js
+public/javascripts/bundle.js
 
 #!! ERROR: n is undefined. Use list command to see defined gitignore types !!#
 

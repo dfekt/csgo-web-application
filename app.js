@@ -9,6 +9,7 @@ var config = require('./config.json');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var gathers = require('./routes/gathers');
+var admin = require('./routes/admin');
 
 var db = require('mongoose');
 db.connect(config.dbpath);
@@ -49,6 +50,7 @@ app.use(function(req,res,next){
 app.use('/', routes);
 app.use('/users', users);
 app.use('/gathers',gathers);
+app.use('/admin', admin)
 
 
 
