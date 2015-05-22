@@ -11,8 +11,14 @@ var users = require('./routes/users');
 var gathers = require('./routes/gathers');
 var admin = require('./routes/admin');
 
-var mongo = require('mongoskin');
-var db = mongo.db(config.dbpath, {native_parser:true});
+var db = require('mongoose');
+db.connect(config.dbpath);
+
+var passport = require('passport');
+require('./lib/passport')(passport);
+var flash = require('connect-flash');
+var session = require('express-session');
+
 
 var app = express();
 
@@ -28,12 +34,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Make our db accessible to our router
+// required for passport
+app.use(session({ secret: 'ilikebananas' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+//Sends current user from the session to every view
 app.use(function(req,res,next){
-    req.db = db;
-    next();
+    res.locals.user = req.user;
+    next()
 });
 
+// routes ======================================================================
 app.use('/', routes);
 app.use('/users', users);
 app.use('/gathers',gathers);

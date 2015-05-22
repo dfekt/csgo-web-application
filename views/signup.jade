@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    h2.center-align Signup
+    .row
+        form(action="/signup" method="post").col.s12
+            .row
+                .input-field.col.s12
+                    input(id="nick" type="text" name="nick").validate
+                    label(for="nick") Nick
+            .row
+                .input-field.col.s12
+                    input(id="email" type="email" name="email").validate
+                    label(for="email") Email
+
+            .row
+                .input-field.col.s12
+                    input(id="password" type="password" name="password").validate
+                    label(for="password") Password
+            .divider
+            p #{message}
+            .row
+                .col.m12
+                    p.right-align
+                        button(type="submit").btn.btn-large.waves-effect.waves-light Login

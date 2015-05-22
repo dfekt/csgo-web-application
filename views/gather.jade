@@ -1,6 +1,9 @@
 extends layout
 block content
-    h1= name
-    p Welcome to #{name}
-    p Players: #{currentPlayers}/#{maxPlayers}
-    p Skill: #{skill}
+    if gather
+        h1= gather.name
+        p Welcome to #{gather.name}
+        p Players: #{gather.currentPlayers}/#{gather.maxPlayers}
+        p Skill: #{gather.skill}
+    else
+        h1 Gather not found

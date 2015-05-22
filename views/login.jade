@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    h2.center-align Login
+    .row
+        form(action="/login" method="post").col.s12
+            .row
+                .input-field.col.s12
+                    input(id="email" type="email" name="email").validate
+                    label(for="email") Email
+
+            .row
+                .input-field.col.s12
+                    input(id="password" type="password" name="password").validate
+                    label(for="pass") Password
+            .row
+                .col.s12
+                    p
+                        input(type="checkbox" id="remember")
+                        label(for="remember") Remember me
+            .divider
+            p #{message}
+            .row
+                .col.m12
+                    p.right-align
+                        button(type="submit").btn.btn-large.waves-effect.waves-light Login

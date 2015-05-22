@@ -9,7 +9,15 @@ var srv = require('../lib/serverManagement.js');
 router.get('/servers', function(req, res, next) {
     srv.get_servers(function(err, data){
     
-    res.render('admin/servers', { 'servers': data })
+        res.render('admin/servers', { 'servers': data })
+    
+    })
+})
+
+router.get('/api/servers', function(req, res, next){
+    srv.get_servers(function(err, data){
+    
+        res.json(data)
     
     })
 })
