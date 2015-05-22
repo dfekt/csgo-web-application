@@ -11,7 +11,6 @@ var admin = function () {
     }
 
     var toggleConsole = function (consoleDiv) {
-        console.log(consoleDiv)
         if (consoleDiv.style.display == "block") {
             consoleDiv.style.display = "none"
         } else {
@@ -21,9 +20,24 @@ var admin = function () {
 
     var doServerAction = function(button, action) {
         var call = url + "servers/" + button.parentNode.id + "/" + action
-        console.log(call)
         u.ajax(call, function(err, data){
             console.log(err)
+        })
+    }
+
+    var updateConsole = function(consoleDiv) {
+        var call = url + "servers/" + consoleDiv.previousSibling.id + "/console"
+        console.log(call)
+        u.ajax(call, function(err, data){
+            var pre = "<pre>"
+
+            data.forEach(function(line){
+                pre += line
+            })
+
+            pre += "</pre>"
+
+            consoleDiv.innerHTML = pre
         })
     }
 
@@ -34,6 +48,7 @@ var admin = function () {
 
             for (var i = 0; i < consoles.length; i++) {
                 consoles[i].style.display = "none"
+                updateConsole(consoles[i])
             }
 
             var startBtns = document.querySelectorAll(".startBtn")

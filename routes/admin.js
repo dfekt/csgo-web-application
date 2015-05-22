@@ -36,4 +36,13 @@ router.get('/api/servers/:server/restart', function(req, res, next){
     })
 })
 
+router.get('/api/servers/:server/console', function(req, res, next){
+    srv.consolelog(req.params.server, function(err, data){
+        if (err) {
+            console.log(err)
+        }
+        res.json(data)
+    })
+})
+
 module.exports = router
