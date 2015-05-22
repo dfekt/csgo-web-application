@@ -18,6 +18,18 @@ router.get('/api/servers', function(req, res, next){
     })
 })
 
+router.get('/api/servers/:server/start', function(req, res, next){
+    srv.start(req.params.server, function(err, data){
+        console.log(data)
+    })
+})
+
+router.get('/api/servers/:server/stop', function(req, res, next){
+    srv.stop(req.params.server, function(err, data){
+        console.log(data)
+    })
+})
+
 router.get('/api/servers/:server/restart', function(req, res, next){
     srv.restart(req.params.server, function(err, data){
         console.log(data)

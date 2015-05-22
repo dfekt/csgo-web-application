@@ -11,6 +11,7 @@ var admin = function () {
     }
 
     var toggleConsole = function (consoleDiv) {
+        console.log(consoleDiv)
         if (consoleDiv.style.display == "block") {
             consoleDiv.style.display = "none"
         } else {
@@ -18,22 +19,65 @@ var admin = function () {
         }
     }
 
-
+    var doServerAction = function(button, action) {
+        var call = url + "servers/" + button.parentNode.id + "/" + action
+        console.log(call)
+        u.ajax(call, function(err, data){
+            console.log(err)
+        })
+    }
 
     return {
         init: function() {
+
+            var consoles = document.querySelectorAll(".console")
+
+            for (var i = 0; i < consoles.length; i++) {
+                consoles[i].style.display = "none"
+            }
+
             var startBtns = document.querySelectorAll(".startBtn")
             var stopBtns = document.querySelectorAll(".stopBtn")
             var restartBtns = document.querySelectorAll(".restartBtn")
             var consoleBtns = document.querySelectorAll(".consoleBtn")
 
-            restartBtns.forEach(function(button){
-                button.addEventListener('click', function(event) {
-                    u.ajax(url + "servers/" + this.parentNode.id + "/restart", function(err, data){
-                        console.log(data)
-                    })
+            // Start buttons
+            for (var i = 0; i < startBtns.length; i++) {
+                startBtns[i].addEventListener('click', function(event) {
+                    doServerAction(this, "start")
                 })
-            })
+            }
+
+            // Stop buttons
+            for (var i = 0; i < stopBtns.length; i++) {
+                stopBtns[i].addEventListener('click', function(event) {
+                    doServerAction(this, "stop")
+                })
+            }
+
+            // Restart buttons
+            for (var i = 0; i < restartBtns.length; i++) {
+                restartBtns[i].addEventListener('click', function(event) {
+                    doServerAction(this, "restart")
+                })
+            }
+
+            // Console buttons
+            for (var i = 0; i < consoleBtns.length; i++) {
+                consoleBtns[i].addEventListener('click', function(event) {
+                    toggleConsole(this.parentNode.nextSibling)
+                })
+            }
+
+
+            //restartBtns.forEach(function(button){
+            //    console.log("all the buttons")
+            //    button.addEventListener('click', function(event) {
+            //        u.ajax(url + "servers/" + this.parentNode.id + "/restart", function(err, data){
+            //            console.log(data)
+            //        })
+            //    })
+            //})
 
 
         }
