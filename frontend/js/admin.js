@@ -20,19 +20,18 @@ var admin = function () {
 
     var doServerAction = function(button, action) {
         var call = url + "servers/" + button.parentNode.id + "/" + action
-        u.ajax(call, function(err, data){
+        u.ajax(call, null, 'GET', function(err, data){
             console.log(err)
         })
     }
 
     var updateConsole = function(consoleDiv) {
         var call = url + "servers/" + consoleDiv.previousSibling.id + "/console"
-        console.log(call)
-        u.ajax(call, function(err, data){
+        u.ajax(call, null, 'GET', function(err, data){
             var pre = "<pre>"
 
             data.forEach(function(line){
-                pre += line
+                pre += line + "<br>"
             })
 
             pre += "</pre>"

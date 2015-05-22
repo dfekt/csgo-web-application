@@ -13,6 +13,7 @@ var utilities = function () {
         }
 
         request(options, function(err, res, body) {
+            console.log(callback)
             if (err)
                 return callback(err)
 
