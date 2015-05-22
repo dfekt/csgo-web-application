@@ -2,10 +2,10 @@ var admin = require("./admin.js")
 var gather = require("./gather.js")
 
 if (typeof String.prototype.startsWith != 'function') {
-  // see below for better implementation!
-  String.prototype.startsWith = function (str){
-    return this.indexOf(str) === 0
-  }
+    // see below for better implementation!
+    String.prototype.startsWith = function (str){
+        return this.indexOf(str) === 0
+    }
 }
 
 window.addEventListener("load", function(){

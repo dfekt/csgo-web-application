@@ -80,20 +80,9 @@ var admin = function () {
             for (var i = 0; i < consoleBtns.length; i++) {
                 consoleBtns[i].addEventListener('click', function(event) {
                     toggleConsole(this.parentNode.nextSibling)
+                    updateConsole(this.parentNode.nextSibling)
                 })
             }
-
-
-            //restartBtns.forEach(function(button){
-            //    console.log("all the buttons")
-            //    button.addEventListener('click', function(event) {
-            //        u.ajax(url + "servers/" + this.parentNode.id + "/restart", function(err, data){
-            //            console.log(data)
-            //        })
-            //    })
-            //})
-
-
         }
     }
 }()
