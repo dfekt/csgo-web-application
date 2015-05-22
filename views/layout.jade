@@ -2,11 +2,40 @@ doctype html
 html
     head
         title= title
-        link(rel='stylesheet', href='/stylesheets/style.css')
         link(rel='stylesheet', href='/stylesheets/materialize.min.css')
+        link(rel='stylesheet', href='/stylesheets/style.css')
     body
-        block content
+        .navbar-fixed
+            nav
+                .nav-wrapper
+                    .col.s12
+                        a(href="/").brand-logo
+                            img(src="/images/logo.png" alt)
+                        a(href="#" data-activates="mobile-nav").button-collapse
+                            i.mdi-navigation-menu
+                        div.right-nav.hide-on-med-and-down
+                            if user
+                                a(href="/profile/#{user._id}").waves-effect.btn-flat #{user.local.nick}
+                                a(href="/logout").waves-effect.waves-light.btn Logout
+                            else
+                                a(href="/signup").waves-effect.btn-flat Signup
+                                a(href="/login").waves-effect.waves-light.btn Login
+                        ul.right.hide-on-med-and-down
+                            li
+                                a(href="/") Home
+                            li
+                                a(href="#") About
+                        ul.side-nav#mobile-nav
+                            li
+                                a(href="/") Home
+                            li
+                                a(href="#") About
+                            a(href="/signup").waves-effect.btn-flat Signup
+                            a(href="/login").waves-effect.waves-light.btn Login
+        div.page-content
+            block content
         script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
         script(src='https://code.jquery.com/jquery-2.1.1.min.js')
         script(src='/javascripts/materialize.min.js')
         script(src='/javascripts/global.js')
+        script(src='/javascripts/bundle.js')

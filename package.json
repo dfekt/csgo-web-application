@@ -3,16 +3,42 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "build": "npm run build:css & npm run build:js",
+    "build:css": "lessc frontend/less/core.less public/stylesheets/bundle.css && npm run preprocess:autoprefixer; true",
+    "build:js": "browserify frontend/js/app.js -o public/javascripts/bundle.js",
+    "watch": "npm run watch:css & npm run watch:js",
+    "watch:css": "nodemon -I -w frontend/less/ --ext less --exec 'npm run build:css'",
+    "watch:js": "watchify frontend/js/app.js -o public/javascripts/bundle.js -v",
+    "preprocess:autoprefixer": "autoprefixer publicstylesheets/bundle.css",
+    "jshint": "jshint --reporter node_modules/jshint-stylish/stylish.js frontend/js/; true"
   },
   "dependencies": {
+    "babelify": "^6.1.1",
     "body-parser": "~1.12.0",
+    "browser-request": "^0.3.3",
+    "browserify": "^10.2.1",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "~1.12.0",
+    "connect-flash": "^0.1.1",
     "cookie-parser": "~1.3.4",
     "debug": "~2.1.1",
     "express": "~4.12.2",
+    "express-session": "^1.11.2",
     "jade": "~1.9.2",
-    "morgan": "~1.5.1",
+    "jshint": "^2.7.0",
+    "jshint-stylish": "^1.0.2",
     "mongoskin": "~1.4.13",
+    "morgan": "~1.5.1",
+    "nodemon": "^1.3.7",
+    "request": "^2.55.0",
+    "serve-favicon": "~2.2.0",
+    "uglifyify": "^3.0.1",
+    "watchify": "^3.2.1",
+    "mongoose": "^4.0.3",
+    "morgan": "~1.5.1",
+    "passport": "~0.1.17",
+    "passport-local": "~0.1.6",
     "serve-favicon": "~2.2.0"
   },
   "description": "A web-application for booking servers and creating gathers",
@@ -22,8 +48,18 @@
     "type": "git",
     "url": "https://github.com/dfekt/csgo-web-application.git"
   },
-  "author": "",
-  "license": "ISC",
+  "browserify": {
+    "transform": [
+      "babelify",
+      "uglifyify"
+    ]
+  },
+  "author": {
+    "name": "Espen Hellerud",
+    "email": "insert@epost.no",
+    "url": "http://espehel.no"
+  },
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/dfekt/csgo-web-application/issues"
   },
