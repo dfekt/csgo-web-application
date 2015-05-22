@@ -1,7 +1,18 @@
 extends ../layout
 block content
-    h1= name
-    ul
-        each server in servers
-            li= server
-    button#button
+    h1= "Servers"
+
+    each server in servers
+        div.row
+            h2= server
+            div.s12#server
+                a.startBtn.waves-effect.waves-light.btn Start
+                    i.mdi-av-play-arrow.right
+                a.stopBtn.waves-effect.waves-light.btn Stop
+                    i.mdi-av-stop.right
+                a.restartBtn.waves-effect.waves-light.btn Restart
+                    i.mdi-av-replay.right
+                a.consoleBtn.waves-effect.waves-light.btn Console
+                    i.mdi-device-settings-system-daydream.right
+            div.console.s12.card-panel
+                Console

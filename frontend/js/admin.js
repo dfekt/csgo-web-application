@@ -10,12 +10,31 @@ var admin = function () {
         })
     }
 
+    var toggleConsole = function (consoleDiv) {
+        if (consoleDiv.style.display == "block") {
+            consoleDiv.style.display = "none"
+        } else {
+            consoleDiv.style.display = "block"
+        }
+    }
+
+
+
     return {
         init: function() {
-            var button = document.querySelector("#button")
-            button.addEventListener('click', function(){
-                printAvailableServersToConsole()
+            var startBtns = document.querySelectorAll(".startBtn")
+            var stopBtns = document.querySelectorAll(".stopBtn")
+            var restartBtns = document.querySelectorAll(".restartBtn")
+            var consoleBtns = document.querySelectorAll(".consoleBtn")
+
+            restartBtns.forEach(function(button){
+                button.addEventListener('click', function(event) {
+                    u.ajax(url + "servers/" + this.parentNode.id + "/restart", function(err, data){
+                        console.log(data)
+                    })
+                })
             })
+
 
         }
     }
