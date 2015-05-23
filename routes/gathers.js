@@ -13,8 +13,6 @@ router.get('/create', function(req, res, next) {
  * POST add gather.
  */
 router.post('/add', function(req, res) {
-    console.log("BODY: ", req.body);
-    console.log("USER: ", req.user);
 
     var gather = {
         name: req.body.name,
