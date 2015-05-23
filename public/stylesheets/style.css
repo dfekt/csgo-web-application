@@ -17,3 +17,6 @@ nav .nav-wrapper {
 nav ul a {
     color: #343434;
 }
+.modal .modal-footer .btn{
+    margin: 6px 3px;;
+}

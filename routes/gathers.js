@@ -1,20 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var ObjectID = require('mongodb').ObjectID;
-var db = require('mongoose');
-
-// Initiate schema
-var GatherSchema = new db.Schema({
-    name: String,
-    startingTime: String,
-    currentPlayers: Number,
-    maxPlayers: Number,
-    skill: String,
-    user: String,
-    dateCreated : Date,
-    dateUpdated : { type: Date, default: Date.now }
-});
-var Gather = db.model('Gather',GatherSchema);
+var Gather = require('../models/gather');
 
 
 /* GET create page. */
@@ -26,10 +13,26 @@ router.get('/create', function(req, res, next) {
  * POST add gather.
  */
 router.post('/add', function(req, res) {
-    Gather.create(req.body, function(err, gather){
-        res.send(
-            (err === null) ? { msg: gather._id } : { msg: err }
-        );
+    console.log("BODY: ", req.body);
+    console.log("USER: ", req.user);
+
+    var gather = {
+        name: req.body.name,
+        startingTime: req.body.startingDate + " " + req.body.startingTime,
+        currentPlayers: 0,
+        maxPlayers: parseInt(req.body.teamSize)*2,
+        skill: req.body.skill,
+        user: req.user._id,
+        status: "open",
+        dateCreated : new Date()
+    }
+    Gather.create(gather, function(err, gather){
+        if(!err){
+            res.redirect("/");
+        }
+        else{
+            res.send(err);
+        }
     });
 });
 

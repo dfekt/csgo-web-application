@@ -26,52 +26,6 @@ $(document).ready(function() {
 
     $('select').material_select();
 
-    $('#addGather').on('click', addGather);
-
-
-    populateGatherList();
+    $('.modal-trigger').leanModal();
 });
 
-function populateGatherList(){
-
-    var listContent = '';
-
-    $.getJSON( '/gathers/gatherlist', function( data ){
-
-        $.each(data, function(){
-            listContent += '<a href="/gathers/'+this._id+'" class="collection-item">' + this.name + " - " + this.startingTime + " - " + this.currentPlayers+"/"+this.maxPlayers+'</a></td>';
-        })
-        $('#gatherList').html(listContent);
-    })
-
-}
-
-// Add Gather
-function addGather(event) {
-    event.preventDefault();
-
-    var dateString = $('#startingDate').val();
-    var timeString = $('#startingTime').val();
-
-
-    // If it is, compile all user info into one object
-    var newGather = {
-        name: $('#name').val(),
-        startingTime: dateString + " " + timeString,
-        currentPlayers: 0,
-        maxPlayers: parseInt($('#teamSize').val())*2,
-        skill: $('#skill').val(),
-        user: "email@domain.do",
-        dateCreated : new Date()
-    }
-
-    // Use AJAX to post the object to our addgather service
-    $.ajax({
-        type: 'POST',
-        data: newGather,
-        url: '/gathers/add',
-        dataType: 'JSON'
-    }).done(function( response ) {
-        window.location.replace(response.msg);
-    });
-};

@@ -2,29 +2,29 @@ extends layout
 block content
     h3 Create new gather
     .row
-        form.col.s12
+        form(action="/gathers/add" method="post").col.s12
             .row
                 .input-field.col.s12
-                    input(id="name" type="text").validate
+                    input(id="name" type="text" name="name").validate
                     label(for="name") Name
             .row
                 .input-field.col.s6
-                    label(for="startingDate") Starting date
-                    input(id="startingDate" type="text").datepicker
+                    label(for="startingDate" ) Starting date
+                    input(id="startingDate" type="text" name="startingDate").datepicker
                 .input-field.col.s6
-                    input(id="startingTime" type="text").validate
+                    input(id="startingTime" type="text" name="startingTime").validate
                     label(for="startingTime") Starting time
             .row
                 .input-field.col.s6
-                    input(id="teamSize" type="text").validate
+                    input(id="teamSize" type="text" name="teamSize").validate
                     label(for="teamSize") Team size
                 .input-field.col.s6
-                    select(id="skill")
+                    select(id="skill" name="skill")
                         option(value="" selected) Choose skill
                         option(value="low") Low
                         option(value="med") Med
                         option(value="high") High
                     label Skill
             .row
-                button(type="submit").btn.waves-effect.waves-light#addGather Submit
+                button(type="submit").btn.waves-effect.waves-light Submit
                     i.mdi-content-send.right

@@ -6,9 +6,18 @@ block content
     .collection-header
         h4 Gathers
     .collection#gatherList
-        a(href="#!").collection-item Gather1 - DD:MM:YYYY HH:MM - 8/10
-        a(href="#!").collection-item Gather2 - DD:MM:YYYY HH:MM - 8/10
-        a(href="#!").collection-item Gather3 - DD:MM:YYYY HH:MM - 8/10
-        a(href="#!").collection-item Gather4 - DD:MM:YYYY HH:MM - 8/10
-        a(href="#!").collection-item Gather5 - DD:MM:YYYY HH:MM - 8/10
-    a(href="/gathers/create").waves-effect.waves-light.btn New Gather
+        if gathers
+            each gather in gathers
+                a(href="/gathers/#{gather._id}").collection-item #{gather.name} - #{gather.startingTime} - #{gather.currentPlayers}/#{gather.maxPlayers}
+    if user
+        a(href="/gathers/create").waves-effect.waves-light.btn New Gather
+    else
+        a(data-target="login-modal").waves-effect.waves-light.btn.modal-trigger New Gather
+
+    .modal#login-modal
+        .modal-content
+            h4 Permission denied!
+            p You have to be logged in, if you want to create a gather!
+        .modal-footer
+            a().modal-action.modal-close.waves-effect.waves-green.btn Close
+            a(href="/login").modal-action.modal-close.waves-effect.waves-green.btn Login
