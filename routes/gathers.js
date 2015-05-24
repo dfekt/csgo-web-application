@@ -18,7 +18,7 @@ router.post('/add', function(req, res) {
         name: req.body.name,
         startingTime: req.body.startingDate + " " + req.body.startingTime,
         currentPlayers: 0,
-        maxPlayers: parseInt(req.body.teamSize)*2,
+        teamSize: parseInt(req.body.teamSize),
         skill: req.body.skill,
         user: req.user._id,
         status: "open",
@@ -48,8 +48,10 @@ router.get('/gatherlist', function(req, res) {
 
 /* GET gather x page. */
 router.get('/:gatherid', function(req, res, next) {
+    console.log("GET GATHER");
     if(ObjectID.isValid(req.params.gatherid)) {
         Gather.findById(req.params.gatherid,function (err,gather){
+            console.log(gather);
             if (!err) {
                 res.render('gather.jade', {gather: gather});
             }

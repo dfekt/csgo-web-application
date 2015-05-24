@@ -1,14 +1,17 @@
 var mongoose = require('mongoose');
+var ObjectId = mongoose.Schema.ObjectId;
 
 // Initiate schema
 var gatherSchema = new mongoose.Schema({
     name: String,
     startingTime: String,
     currentPlayers: Number,
-    maxPlayers: Number,
+    teamSize: Number,
     skill: String,
-    user: mongoose.Schema.ObjectId,
-    status: String,
+    user: ObjectId,
+    status: String,//open,full,started,finished
+    team1: [{_id: ObjectId,nick:String}],
+    team2: [{_id: ObjectId,nick:String}],
     dateCreated : Date,
     dateUpdated : { type: Date, default: Date.now }
 });

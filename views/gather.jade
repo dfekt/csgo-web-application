@@ -1,9 +1,29 @@
 extends layout
 block content
     if gather
-        h1= gather.name
+        h1 #{gather.name}
         p Welcome to #{gather.name}
-        p Players: #{gather.currentPlayers}/#{gather.maxPlayers}
+        p Players: #{gather.currentPlayers}/#{gather.teamSize * 2}
         p Skill: #{gather.skill}
+        h2 Team 1
+        .collection
+            - var i = 0
+            while i < gather.teamSize
+                - var player = gather.team1[i]
+                if player
+                    a(href="/profile/#{player._id}").collection-item #{player.nick}
+                else
+                    a(href="/gathers/"+gather._id+"/team1/join").collection-item Empty slot
+                - i++
+        h2 Team 2
+        .collection
+            - var i = 0
+            while i < gather.teamSize
+                - var player = gather.team2[i]
+                if player
+                    a(href="/profile/#{player._id}").collection-item #{player.nick}
+                else
+                    a(href="/gathers/"+gather._id+"/team2/join").collection-item Empty slot
+                - i++
     else
         h1 Gather not found
