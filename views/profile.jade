@@ -2,7 +2,7 @@ extends layout
 block content
     if owner
         h1= owner.local.nick
-        p Welcome to #{owner.local.nick}'s proile
+        p Welcome to #{owner.nick}'s proile
         p Email: #{owner.local.email}
         p ID: #{owner._id}
         if user

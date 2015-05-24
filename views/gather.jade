@@ -13,7 +13,7 @@ block content
                 if player
                     a(href="/profile/#{player._id}").collection-item #{player.nick}
                 else
-                    a(href="/gathers/"+gather._id+"/team1/join").collection-item Empty slot
+                    a(href="/gathers/#{gather._id}/team1/join").collection-item Empty slot
                 - i++
         h2 Team 2
         .collection
@@ -23,7 +23,7 @@ block content
                 if player
                     a(href="/profile/#{player._id}").collection-item #{player.nick}
                 else
-                    a(href="/gathers/"+gather._id+"/team2/join").collection-item Empty slot
+                    a(href="/gathers/#{gather._id}/team2/join").collection-item Empty slot
                 - i++
     else
         h1 Gather not found

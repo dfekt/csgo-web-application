@@ -26,7 +26,7 @@ router.post('/add', function(req, res) {
     }
     Gather.create(gather, function(err, gather){
         if(!err){
-            res.redirect("/");
+            res.redirect("/gathers/"+gather._id);
         }
         else{
             res.send(err);
@@ -48,15 +48,13 @@ router.get('/gatherlist', function(req, res) {
 
 /* GET gather x page. */
 router.get('/:gatherid', function(req, res, next) {
-    console.log("GET GATHER");
     if(ObjectID.isValid(req.params.gatherid)) {
         Gather.findById(req.params.gatherid,function (err,gather){
-            console.log(gather);
             if (!err) {
                 res.render('gather.jade', {gather: gather});
             }
             else
-                res.render('gather.jade');
+                res.send(err);
         });
     }
     //check if it is trying to find gather by its name, this works if the name is unique
@@ -66,10 +64,30 @@ router.get('/:gatherid', function(req, res, next) {
                 res.render('gather.jade', {gather: gather});
             }
             else
-                res.render('gather.jade');
+                res.send(err);
         })
     }
 });
+
+/* GET Join gather*/
+
+router.get('/:gatherid/:team/join', function(req,res){
+    Gather.findById(req.params.gatherid,function(err,gather){
+        if (err) {
+            res.send(err);
+        }
+        else{
+            gather.addPlayer({_id:req.user._id,nick:req.user.nick},req.params.team,function(result){
+                if(result.err){
+                    res.send(result.err);
+                }
+                else{
+                    res.redirect("/gathers/"+req.params.gatherid);
+                }
+            })
+        }
+    })
+})
 
 
 
