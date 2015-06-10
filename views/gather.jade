@@ -3,7 +3,7 @@ block content
     if gather
         h1 #{gather.name}
         p Welcome to #{gather.name}
-        p Players: #{gather.currentPlayers}/#{gather.teamSize * 2}
+        p Players: #{gather.team1.length + gather.team2.length}/#{gather.teamSize * 2}
         p Skill: #{gather.skill}
         h2 Team 1
         .collection

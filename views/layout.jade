@@ -15,7 +15,7 @@ html
                             i.mdi-navigation-menu
                         div.right-nav.hide-on-med-and-down
                             if user
-                                a(href="/profile/#{user._id}").waves-effect.btn-flat #{user.local.nick}
+                                a(href="/profile/#{user._id}").waves-effect.btn-flat #{user.nick}
                                 a(href="/logout").waves-effect.waves-light.btn Logout
                             else
                                 a(href="/signup").waves-effect.btn-flat Signup
