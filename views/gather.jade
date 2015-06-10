@@ -5,6 +5,9 @@ block content
         p Welcome to #{gather.name}
         p Players: #{gather.team1.length + gather.team2.length}/#{gather.teamSize * 2}
         p Skill: #{gather.skill}
+        .divider
+        p #{message}
+        .divider
         h2 Team 1
         .collection
             - var i = 0

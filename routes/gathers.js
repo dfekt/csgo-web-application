@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var ObjectID = require('mongodb').ObjectID;
 var Gather = require('../models/gather');
+var User = require('../models/user');
 
 
 /* GET create page. */
@@ -51,7 +52,7 @@ router.get('/:gatherid', function(req, res, next) {
     if(ObjectID.isValid(req.params.gatherid)) {
         Gather.findById(req.params.gatherid,function (err,gather){
             if (!err) {
-                res.render('gather.jade', {gather: gather});
+                res.render('gather.jade', {gather: gather, message: req.flash('joinMessage')});
             }
             else
                 res.send(err);
@@ -70,23 +71,41 @@ router.get('/:gatherid', function(req, res, next) {
 });
 
 /* GET Join gather*/
-
 router.get('/:gatherid/:team/join', function(req,res){
-    Gather.findById(req.params.gatherid,function(err,gather){
-        if (err) {
-            res.send(err);
-        }
-        else{
-            gather.addPlayer({_id:req.user._id,nick:req.user.nick},req.params.team,function(result){
-                if(result.err){
-                    res.send(result.err);
-                }
-                else{
-                    res.redirect("/gathers/"+req.params.gatherid);
-                }
-            })
-        }
-    })
+    if(!req.user){
+        req.flash('joinMessage','You must be logged in to join a gather');
+        res.redirect("/gathers/"+req.params.gatherid);
+    }
+    else {
+        Gather.findById(req.params.gatherid, function (err, gather) {
+            if (err) {
+                res.send(err);
+            }
+            else {
+                gather.addPlayer(req.user, req.params.team, function (result) {
+                    if (result.err) {
+                        res.send(result.err);
+                    }
+                    else {
+                        req.flash('joinMessage',result.message);
+                        if (result.message == "success") {
+                            User.update({_id: req.user._id}, {$set: {currentGather: gather._id}}, function (err,raw) {
+                                if (err) {
+                                    res.send(err);
+                                }
+                                else{
+                                    res.redirect("/gathers/" + gather._id);
+                                }
+                            });
+                        }
+                        else{
+                            res.redirect("/gathers/" + gather._id);
+                        }
+                    }
+                })
+            }
+        })
+    }
 })
 
 

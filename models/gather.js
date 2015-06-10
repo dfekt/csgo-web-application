@@ -17,6 +17,12 @@ var gatherSchema = new mongoose.Schema({
 });
 
 gatherSchema.methods.addPlayer = function(player,team, callback){
+
+    if(player.currentGather == null){
+        callback({message: "you have already joined an unfinished gather"})
+        return;
+    }
+
     if(this.status == 'open') {
         if (team == 'team1' && this.team1.length < this.teamSize) {
             this.team1.push(player);

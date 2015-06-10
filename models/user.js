@@ -1,6 +1,7 @@
 // load the things we need
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
+var ObjectId = mongoose.Schema.ObjectId;
 
 // define the schema for our user model
 var userSchema = mongoose.Schema({
@@ -10,6 +11,8 @@ var userSchema = mongoose.Schema({
         password: String
     },
     nick: String,
+    currentGather: {type: ObjectId, default: null},
+    gatherHistory: [ObjectId],
     dateCreated : Date,
     dateUpdated : { type: Date, default: Date.now }
 
@@ -26,5 +29,8 @@ userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
 
+
+
 // create the model for users and expose it to our app
 module.exports = mongoose.model('User', userSchema);
+
