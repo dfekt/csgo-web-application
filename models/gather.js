@@ -8,17 +8,17 @@ var gatherSchema = new mongoose.Schema({
     currentPlayers: Number,
     teamSize: Number,
     skill: String,
-    user: ObjectId,
+    owner: {_id: ObjectId, nick: String},
     status: String,//open,full,started,finished
-    team1: [{_id: ObjectId,nick:String}],
-    team2: [{_id: ObjectId,nick:String}],
+    team1: [{_id: ObjectId, nick:String}],
+    team2: [{_id: ObjectId, nick:String}],
     dateCreated : Date,
     dateUpdated : { type: Date, default: Date.now }
 });
 
 gatherSchema.methods.addPlayer = function(player,team, callback){
 
-    if(player.currentGather == null){
+    if(player.currentGather != null){
         callback({message: "you have already joined an unfinished gather"})
         return;
     }

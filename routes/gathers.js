@@ -5,6 +5,13 @@ var Gather = require('../models/gather');
 var User = require('../models/user');
 
 
+//handles generic db callbacks
+var callback = function (err, raw) {
+    if (err) {
+        res.send(err);
+    }
+}
+
 /* GET create page. */
 router.get('/create', function(req, res, next) {
     res.render('createGather.jade', { now: new Date() });
@@ -21,7 +28,7 @@ router.post('/add', function(req, res) {
         currentPlayers: 0,
         teamSize: parseInt(req.body.teamSize),
         skill: req.body.skill,
-        user: req.user._id,
+        owner: {_id:req.user._id, nick: req.user.nick},
         status: "open",
         dateCreated : new Date()
     }
@@ -88,25 +95,48 @@ router.get('/:gatherid/:team/join', function(req,res){
                     }
                     else {
                         req.flash('joinMessage',result.message);
+                        //if success update current gather on the user
                         if (result.message == "success") {
-                            User.update({_id: req.user._id}, {$set: {currentGather: gather._id}}, function (err,raw) {
-                                if (err) {
-                                    res.send(err);
-                                }
-                                else{
-                                    res.redirect("/gathers/" + gather._id);
-                                }
-                            });
+                            User.update({_id: req.user._id}, {$set: {currentGather: gather._id}}, callback);
                         }
-                        else{
-                            res.redirect("/gathers/" + gather._id);
-                        }
+                        res.redirect("/gathers/" + gather._id);
                     }
                 })
             }
         })
     }
 })
+
+/*POST Leave gather*/
+router.post('/:gatherid/leave', function(req, res) {
+    Gather.findById(req.params.gatherid, function (err, gather) {
+        if (err) {
+            res.send(err);
+        }
+        else {
+            var n = -1;
+            for(var i = 0; i < gather[req.body.team].length;i++) {
+                console.log(gather[req.body.team][i]._id);
+                if(gather[req.body.team][i]._id.equals(req.body.playerid)){
+                    n = i;
+                }
+            }
+            if(n != -1) {
+                gather[req.body.team].splice(n,1);
+                User.update({_id: req.user._id}, {$set: {currentGather: null}}, callback);
+                gather.save(function (err) {
+                    if(err){
+                        res.send(err);
+                    }
+                    else{
+                        res.redirect("/gathers/" + gather._id);
+                    }
+                });
+            }
+        }
+    })
+
+});
 
 
 

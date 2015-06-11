@@ -29,6 +29,10 @@ userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
 
+userSchema.methods.leaveCurrentGather = function () {
+    currentGather = null;
+}
+
 
 
 // create the model for users and expose it to our app
