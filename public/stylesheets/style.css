@@ -24,3 +24,7 @@ nav ul a {
 .primary-content{
     color: #26a69a;
 }
+
+.control-panel a {
+    margin: 5px;
+}

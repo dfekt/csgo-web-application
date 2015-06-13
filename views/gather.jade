@@ -1,15 +1,27 @@
 extends layout
 block content
     if gather
-        h1 #{gather.name}
+        h1.header #{gather.name}
         p Welcome to #{gather.name}
         p Owner: #{gather.owner.nick}
         p Players: #{gather.team1.length + gather.team2.length}/#{gather.teamSize * 2}
         p Skill: #{gather.skill}
         .divider
-        p #{message}
-        .divider
-        h2 Team 1
+        if message && message.length > 0
+            p #{message}
+            .divider
+        if user && gather.owner._id.equals(user._id)
+            .control-panel
+                if gather.status == 'open'
+                    a(href="/gathers/#{gather._id}/start").waves-effect.waves-light.btn-large Start
+                        i.mdi-av-play-arrow.right
+                if gather.status == 'started'
+                    a(href="/gathers/#{gather._id}/finish").waves-effect.waves-light.btn-large Finish
+                        i.mdi-action-done.right
+                a(href="/gathers/#{gather._id}/cancel").waves-effect.waves-light.btn-large Cancel
+                    i.mdi-navigation-close.right
+                .divider
+        h2.header Team 1
         ul.collection
             - var i = 0
             while i < gather.teamSize
@@ -23,7 +35,7 @@ block content
                 else
                     a(href="/gathers/#{gather._id}/team1/join").collection-item Empty slot
                 - i++
-        h2 Team 2
+        h2.header Team 2
         ul.collection
             - var i = 0
             while i < gather.teamSize

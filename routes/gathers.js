@@ -12,6 +12,21 @@ var callback = function (err, raw) {
     }
 }
 
+//checks that the sessions user is the owner of the gather, callbacks the gather if it is true
+var getGatherIfOwner = function (gatherId, userId, callback) {
+    Gather.findById(gatherId, function (err, gather) {
+        if(err){
+            callback(err,gather);
+        }
+        else if(gather.owner._id.equals(userId)){
+            callback(err,gather);
+        }
+        else{
+            callback(err,null);
+        }
+    })
+}
+
 /* GET create page. */
 router.get('/create', function(req, res, next) {
     res.render('createGather.jade', { now: new Date() });
@@ -59,7 +74,7 @@ router.get('/:gatherid', function(req, res, next) {
     if(ObjectID.isValid(req.params.gatherid)) {
         Gather.findById(req.params.gatherid,function (err,gather){
             if (!err) {
-                res.render('gather.jade', {gather: gather, message: req.flash('joinMessage')});
+                res.render('gather.jade', {gather: gather, message: req.flash('statusMessage')});
             }
             else
                 res.send(err);
@@ -80,7 +95,7 @@ router.get('/:gatherid', function(req, res, next) {
 /* GET Join gather*/
 router.get('/:gatherid/:team/join', function(req,res){
     if(!req.user){
-        req.flash('joinMessage','You must be logged in to join a gather');
+        req.flash('statusMessage','You must be logged in to join a gather');
         res.redirect("/gathers/"+req.params.gatherid);
     }
     else {
@@ -94,7 +109,7 @@ router.get('/:gatherid/:team/join', function(req,res){
                         res.send(result.err);
                     }
                     else {
-                        req.flash('joinMessage',result.message);
+                        req.flash('statusMessage',result.message);
                         //if success update current gather on the user
                         if (result.message == "success") {
                             User.update({_id: req.user._id}, {$set: {currentGather: gather._id}}, callback);
@@ -106,6 +121,47 @@ router.get('/:gatherid/:team/join', function(req,res){
         })
     }
 })
+
+router.get('/:gatherid/start', function (req, res) {
+    getGatherIfOwner(req.params.gatherid,req.user._id, function (err, gather) {
+        if(err){
+            res.send(err);
+        }
+        else if (gather == null){
+            req.flash('statusMessage',"You do not have permission to this");
+            res.redirect("/gathers/" + gather._id);
+        }
+        else{
+            //do stuff
+        }
+    });
+});router.get('/:gatherid/finish', function (req, res) {
+    getGatherIfOwner(req.params.gatherid,req.user._id, function (err, gather) {
+        if(err){
+            res.send(err);
+        }
+        else if (gather == null){
+            req.flash('statusMessage',"You do not have permission to this");
+            res.redirect("/gathers/" + gather._id);
+        }
+        else{
+            //do stuff
+        }
+    });
+});router.get('/:gatherid/cancel', function (req, res) {
+    getGatherIfOwner(req.params.gatherid,req.user._id, function (err, gather) {
+        if(err){
+            res.send(err);
+        }
+        else if (gather == null){
+            req.flash('statusMessage',"You do not have permission to this");
+            res.redirect("/gathers/" + gather._id);
+        }
+        else{
+            //do stuff
+        }
+    });
+});
 
 /*POST Leave gather*/
 router.post('/:gatherid/leave', function(req, res) {

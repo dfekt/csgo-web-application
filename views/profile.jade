@@ -1,7 +1,7 @@
 extends layout
 block content
     if owner
-        h1= owner.local.nick
+        h1.header owner.local.nick
         p Welcome to #{owner.nick}'s proile
         p Email: #{owner.local.email}
         p ID: #{owner._id}
