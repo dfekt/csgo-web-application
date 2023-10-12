@@ -1,3 +1,4 @@
+/*
 var admin = require("./admin.js")
 var gather = require("./gather.js")
 
@@ -19,3 +20,4 @@ window.addEventListener("load", function(){
         console.log("main")
     }
 })
+*/
